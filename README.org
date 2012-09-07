@@ -1,0 +1,44 @@
+#+TITLE: iterate extensions for seqs and iterators in common lisp
+
+* com.clearly-useful.iterate+
+
+  *Overview*:
+    This package provides a new keyword for iterate, =per=,
+   and three styles of iteration:
+
+   =(iter (per x in y))=
+   similar to doseq, binds x to each element of
+   the result of calling =seq= on y.
+
+   =(iter (per x on y))=
+   similar to =loop .. on=, binds x to subsequent
+   =tails= of the result of calling =seq= on y.
+
+   =(iter (per x of y))=
+   similar to do-iterator, calls =iterator= on y,
+   and binds x to subsequent values it produces.
+   ensures that =iterator-finish!= is called.
+   since =iterator= provides a default implementation
+   for =seq=, any =seq= may also be used in a
+   =per ... of= clause.
+
+   *Usage*:
+     This package is intended to be used with iterate. Since
+    Iterate tests clauses on symbol-equality, this package
+    will have no effect unless you explicitly :use it, e.g.
+
+    #+begin_src lisp
+      (defpackage #:foo
+        (:use #:cl
+              #:iterate
+              #:com.clearly-useful.iterate+))
+    #+end_src
+    
+* Exported symbols
+  this package exports two symbols.
+  
+** per
+   /iterate driver/
+
+** of
+   /iterate keyword/
