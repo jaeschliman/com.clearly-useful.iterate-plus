@@ -2,7 +2,7 @@
 
 (asdf:defsystem #:com.clearly-useful.iterate+
   :serial t
-  :description "Describe com.clearly-useful.iter+ here"
+  :description "iterate extensions for the sequence and iterator protocols"
   :author "Jason Aeschliman <j.aeschliman@gmail.com>"
   :license "revised BSD"
   :depends-on (#:com.clearly-useful.protocols
