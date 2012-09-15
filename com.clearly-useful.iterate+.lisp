@@ -23,6 +23,18 @@
        (for ,v = ,seq)
        (for ,seq next (tail ,seq)))))
 
+;;; per item across seq
+;;; like for item across vector
+(defmacro-clause (per v across s)
+  (let ((seq (gensym))
+	(count (gensym))
+	(index (gensym)))
+    `(progn
+       (with ,seq = (seq ,s))
+       (with ,count = (count-seq ,seq))
+       (for ,index below ,count)
+       (for ,v = (seq-elt ,seq ,index)))))
+
 ;;; per item of thing
 ;;; iters through a iterator
 ;;; createad by calling iterator

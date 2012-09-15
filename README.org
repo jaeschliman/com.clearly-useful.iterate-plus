@@ -4,7 +4,7 @@
 
   *Overview*:
     This package provides a new keyword for iterate, =per=,
-   and three styles of iteration:
+   and four styles of iteration:
 
    =(iter (per x in y))=
    similar to doseq, binds x to each element of
@@ -14,6 +14,11 @@
    similar to =loop .. on=, binds x to subsequent
    =tails= of the result of calling =seq= on y.
 
+   =(iter (per x across y))=
+   similar to =loop .. across=, calls =seq= on y,
+   and loops by index below =count-seq= binding x to
+   subsequent values of =seq-elt=
+   
    =(iter (per x of y))=
    similar to do-iterator, calls =iterator= on y,
    and binds x to subsequent values it produces.

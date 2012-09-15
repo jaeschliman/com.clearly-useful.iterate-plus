@@ -38,6 +38,13 @@ for seqs"
 	     (iter (per x on seq)
 		   (collect x))))))
 
+(defun expect-across (seq list)
+  (let ((result (loop for x in list collect x)))
+    (assert (seq-equalp
+	     result
+	     (iter (per x across seq)
+		   (collect x))))))
+
 (defun expect-of (seq list)
   (let ((result (loop for x in list collect x)))
     (assert (seq-equalp
@@ -49,6 +56,7 @@ for seqs"
   (mapcar (lambda (seq)
 	    (expect-in seq result)
 	    (expect-on seq result)
+	    (expect-across seq result)
 	    (expect-of seq result))
 	  '(;;cons
 	    (a b c d e)
