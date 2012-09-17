@@ -3,7 +3,7 @@
 (defpackage #:com.clearly-useful.iterate+.test
   (:use #:cl
 	#:iterate
-	#:com.clearly-useful.sequence-protocol
+	#:com.clearly-useful.generic-collection-interface
 	#:com.clearly-useful.iterate+))
 
 
@@ -15,9 +15,11 @@
 for seqs"
   (cond
     ((and (seq-p a)
-	(seq-p b)
-	(= (count-seq a)
-	   (count-seq b))
+	  (countable-p a)
+	  (seq-p b)
+	  (countable-p b)
+	(= (count-elements a)
+	   (count-elements b))
 	(iter (per c in a)
 	      (per d in b)
 	      (always (seq-equalp c d)))))

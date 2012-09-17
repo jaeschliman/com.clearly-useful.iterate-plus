@@ -15,17 +15,16 @@
    =tails= of the result of calling =seq= on y.
 
    =(iter (per x across y))=
-   similar to =loop .. across=, calls =seq= on y,
-   and loops by index below =count-seq= binding x to
-   subsequent values of =seq-elt=
+   similar to =loop .. across=, calls =indexable= on y,
+   and loops by index below =count-elements= binding x to
+   subsequent values of =element-at=
    
    =(iter (per x of y))=
-   similar to do-iterator, calls =iterator= on y,
-   and binds x to subsequent values it produces.
-   ensures that =iterator-finish!= is called.
-   since =iterator= provides a default implementation
-   for =seq=, any =seq= may also be used in a
-   =per ... of= clause.
+   similar to do-iterator, calls =iterator= on
+   y, and binds x to subsequent values it produces.  ensures that
+   =iterator-finish!= is called.  since =iterator= provides a default
+   implementation for =seq=, =indexable=, and =associative=, any of
+   those may also be used in a =per ... of= clause.
 
    *Usage*:
      This package is intended to be used with iterate. Since

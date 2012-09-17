@@ -23,17 +23,17 @@
        (for ,v = ,seq)
        (for ,seq next (tail ,seq)))))
 
-;;; per item across seq
+;;; per item across indexable
 ;;; like for item across vector
 (defmacro-clause (per v across s)
-  (let ((seq (gensym))
+  (let ((idx (gensym))
 	(count (gensym))
 	(index (gensym)))
     `(progn
-       (with ,seq = (seq ,s))
-       (with ,count = (count-seq ,seq))
+       (with ,idx = (indexable ,s))
+       (with ,count = (count-elements ,idx))
        (for ,index below ,count)
-       (for ,v = (seq-elt ,seq ,index)))))
+       (for ,v = (element-at ,idx ,index)))))
 
 ;;; per item of thing
 ;;; iters through a iterator
