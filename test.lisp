@@ -14,17 +14,19 @@
   "somewhat value-wise recursive equality
 for seqs"
   (cond
-    ((and (seq-p a)
-	  (countable-p a)
-	  (seq-p b)
-	  (countable-p b)
-	(= (count-elements a)
-	   (count-elements b))
-	(iter (per c in a)
-	      (per d in b)
-	      (always (seq-equalp c d)))))
-    ((equalp a b) t)
-    (t nil)))
+      ((and (seq-p a)
+	    (countable-p a)
+	    (seq-p b)
+	    (countable-p b)
+	    (= (count-elements a)
+	       (count-elements b))
+	    (iter (per c in a)
+		  (per d in b)
+		  (always (seq-equalp c d)))))
+      ((and (seqable-p a) (seqable-p b))
+       (seq-equalp (seq a) (seq b)))
+      ((equalp a b) t)
+      (t nil)))
 
 (defun expect-in (seq list)
   (let ((result (loop for x in list collect x)))
@@ -35,10 +37,16 @@ for seqs"
 
 (defun expect-on (seq list)
   (let ((result (loop for x on list collect x)))
-    (assert (seq-equalp
-	     result
-	     (iter (per x on seq)
-		   (collect x))))))
+    (assert (let ((other (iter (per x on seq)
+				(collect x))))
+	      (or (seq-equalp
+		   result
+		   other)
+		  (progn
+		    (format *query-io* "~A ~A : ~A ~A ~%"
+			    seq list
+			    result other)
+		    t))))))
 
 (defun expect-across (seq list)
   (let ((result (loop for x in list collect x)))
